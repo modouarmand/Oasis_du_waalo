@@ -9,6 +9,7 @@ header {
         color: #f9f6f0;
         text-align: center;
         padding: 20px;
+        size: 40px;
     }
     .header-container {
         display: flex;
@@ -69,6 +70,10 @@ section {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+h1 {
+        color: #ffffff;
+        size: 40px;
     }
 h2, h3 {
         color: #3b5323;
@@ -135,7 +140,3 @@ footer a {
     font-style: italic;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0);
     }
-h1 {
-    color: #ffffff;
-    size: 40px;
-}
