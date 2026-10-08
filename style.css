@@ -111,22 +111,23 @@ footer a {
     background-position: center;
     height: 300px; /* Ajustez la hauteur selon vos besoins */
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     text-align: center;
-    color: #835555; /* Couleur du texte en blanc */
+    color: #ffffff; /* Couleur du texte en blanc */
+    padding-top: 50px;
     }
     
 .hero-content h1 {
     font-size: 32px;
     margin: 0 0 10px 0;
-    text-shadow: 1px 1px 3px rgba(232, 216, 216, ); /* Ajoute une ombre pour rendre le texte bien lisible sur la photo */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0); /* Ajoute une ombre pour rendre le texte bien lisible sur la photo */
     }
     
 .hero-content p {
     font-size: 20px;
     margin: 0;
     font-style: italic;
-    text-shadow: 1px 1px 3px rgba(232, 216, 216, 0.927);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0);
     }
       
