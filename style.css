@@ -10,6 +10,22 @@ header {
         text-align: center;
         padding: 20px;
     }
+    .header-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      
+    .header-logo {
+        height: 50px;
+        width: auto;
+      }
+      
+    .header-text {
+        font-size: 32px;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
 nav {
     background-color: #d1b894;
     text-align: center;
