@@ -9,7 +9,7 @@ header {
         color: #f9f6f0;
         text-align: center;
         padding: 20px;
-        size: 40px;
+        font-size: 40px;
     }
     .header-container {
         display: flex;
@@ -73,7 +73,7 @@ section {
     }
 h1 {
         color: #ffffff;
-        size: 40px;
+        font-size: 40px;
     }
 h2, h3 {
         color: #3b5323;
