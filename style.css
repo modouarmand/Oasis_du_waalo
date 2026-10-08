@@ -111,11 +111,11 @@ footer a {
     background-position: center;
     height: 300px; /* Ajustez la hauteur selon vos besoins */
     display: flex;
-    align-items: flex-start;
+    align-items:flex-start;
     justify-content: center;
     text-align: center;
     color: #ffffff; /* Couleur du texte en blanc */
-    /*padding-top: 50px;*/
+    padding-top: 50px;
     }
     
 .hero-content h1 {
