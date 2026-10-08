@@ -104,4 +104,29 @@ footer a {
     color: #f9f6f0;
     text-decoration: none;
     }
-        
+.hero-section {
+    /* Remplacez 'votre-image.jpg' par le nom/chemin de votre fichier photo */
+    background-image: url('Oasis/bienvenue.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 300px; /* Ajustez la hauteur selon vos besoins */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #835555; /* Couleur du texte en blanc */
+    }
+    
+.hero-content h1 {
+    font-size: 32px;
+    margin: 0 0 10px 0;
+    text-shadow: 1px 1px 3px rgba(232, 216, 216, ); /* Ajoute une ombre pour rendre le texte bien lisible sur la photo */
+    }
+    
+.hero-content p {
+    font-size: 20px;
+    margin: 0;
+    font-style: italic;
+    text-shadow: 1px 1px 3px rgba(232, 216, 216, 0.927);
+    }
+      
