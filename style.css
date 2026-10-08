@@ -115,7 +115,7 @@ footer a {
     justify-content: center;
     text-align: center;
     color: #ffffff; /* Couleur du texte en blanc */
-    padding-top: 80px;
+    margin-top: -20px;
     }
     
 .hero-content h1 {
