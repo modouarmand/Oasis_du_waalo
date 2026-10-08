@@ -9,13 +9,14 @@ header {
         color: #f9f6f0;
         text-align: center;
         padding: 20px;
-        font-size: 40px;
+        
     }
     .header-container {
         display: flex;
         align-items: center;
         gap: 15px;
         justify-content: center;
+        font-size: 40px;
       }
       
     .header-logo {
