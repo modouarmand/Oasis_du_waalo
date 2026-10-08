@@ -120,13 +120,17 @@ footer a {
     
 .hero-content h1 {
     font-size: 32px;
+    font-family: 'Times New Roman', Times, serif;
     margin: 0 0 10px 0;
+    margin-bottom: 0px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0); /* Ajoute une ombre pour rendre le texte bien lisible sur la photo */
     }
     
 .hero-content p {
     font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
     margin: 0;
+    margin-top: 0px;
     font-style: italic;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0);
     }
