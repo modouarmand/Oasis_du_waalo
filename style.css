@@ -161,3 +161,116 @@ footer a {
     padding-top: 10px;
     background-color: rgb(237, 11, 11);
 }
+
+
+
+/* Conteneur principal */
+.store-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fcf8ef; /* Fond crème */
+    padding: 40px 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+    font-family: sans-serif;
+  }
+  
+  /* Bloc individuel */
+  .store-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  /* Ligne de séparation verticale */
+  .divider {
+    width: 1px;
+    background-color: #e0d8c8;
+    align-self: stretch;
+  }
+  
+  /* Titres */
+  .block-title {
+    color: #3b1300;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+  }
+  
+  /* Disposition Panier (Gauche) */
+  .basket-content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  .basket-img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  .basket-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .basket-text {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #333;
+    margin: 0;
+  }
+  
+  /* Grille d'icônes Boutique (Droite) */
+  .icons-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+  
+  .icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #3b1300;
+    font-size: 14px;
+  }
+  
+  .icon-item img {
+    width: 45px;
+    height: 45px;
+  }
+  
+  /* Style commun des boutons */
+  .btn {
+    display: inline-block;
+    background-color: #78471d; /* Marron chaud */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-align: center;
+    align-self: flex-start; /* Bouton aligné sous le texte à gauche */
+  }
+  
+  .store-block:last-child .btn {
+    align-self: center; /* Bouton centré à droite */
+  }
+  
+  .btn:hover {
+    background-color: #5c3413;
+  }
+  
