@@ -156,5 +156,6 @@ footer a {
     object-fit: cover;
     }
 .hero-button {
+    display: block;
     margin-top: 40px;
 }
