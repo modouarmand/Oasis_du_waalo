@@ -157,5 +157,6 @@ footer a {
     }
 .hero-button {
     display: block;
-    margin-top: 40px;
+    padding-top: 40px;
+    background-color: rgb(237, 11, 11);
 }
