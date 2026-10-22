@@ -6,7 +6,7 @@ body {
     }
 header {
         /*background-color: #3b5323;*/
-        background-color: #2d4a22;
+        background-color: #1b382b;
         color: #f9f6f0;
         text-align: center;
         padding: 20px;
@@ -298,7 +298,7 @@ footer a {
 
 /* Bande supérieure vert foncé */
 .top-bar {
-  background-color: #2d4a22; /* Vert forêt foncé correspondant à votre image */
+  background-color: #1b382b; /* Vert forêt foncé correspondant à votre image */
   padding: 8px 0;
   display: flex;
   justify-content: center;
