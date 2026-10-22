@@ -404,3 +404,626 @@ footer a {
     position: static;
   }
 }
+
+
+/* regroupe l'en-tête à deux bandes, la boutique, la grille de produits, le panier coulissant et la fenêtre de paiement de la page boutique .html */
+/* ==========================================
+   1. RESET & BASES GLOBALES
+   ========================================== */
+   * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdfbf7;
+    color: #2c3e50;
+    line-height: 1.6;
+  }
+  
+  /* ==========================================
+     2. EN-TÊTE HARMONISÉ (HEADER)
+     ========================================== */
+  .header-oasis {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Bande 1 : Vert foncé (Logo + Titre centrés) */
+  .bande-verte {
+    background-color: #2d4a22 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    padding: 10px 20px !important;
+    min-height: 60px !important;
+    width: 100%;
+  }
+  
+  .logo-wrapper {
+    background-color: #e6dac6 !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 45px !important;
+  }
+  
+  .logo-oasis {
+    height: 38px !important;
+    max-height: 38px !important;
+    width: auto !important;
+    max-width: 120px !important;
+    display: block !important;
+    object-fit: contain !important;
+  }
+  
+  .titre-oasis {
+    color: #ffffff !important;
+    font-size: 1.8rem !important;
+    font-family: Arial, sans-serif !important;
+    font-weight: bold !important;
+    margin: 0 !important;
+  }
+  
+  /* Bande 2 : Beige (Navigation centrée) */
+  .bande-beige {
+    background-color: #d8c4a6 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px 20px !important;
+    position: relative !important;
+    border-bottom: 2px solid #c2af91 !important;
+    width: 100%;
+  }
+  
+  .menu-links {
+    display: flex !important;
+    justify-content: center !important;
+    list-style: none !important;
+    gap: 25px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+  
+  .menu-links a {
+    text-decoration: none !important;
+    color: #1a1a1a !important;
+    font-weight: bold !important;
+    font-size: 0.95rem !important;
+    font-family: Arial, sans-serif !important;
+    transition: color 0.2s;
+  }
+  
+  .menu-links a:hover,
+  .menu-links a.active {
+    color: #2d4a22 !important;
+    text-decoration: underline !important;
+  }
+  
+  /* Bouton Panier (Calé à droite) */
+  .cart-btn-head {
+    position: absolute !important;
+    right: 20px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background-color: #2d4a22 !important;
+    color: white !important;
+    border: none !important;
+    padding: 6px 14px !important;
+    border-radius: 15px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 0.85rem !important;
+  }
+  
+  .cart-btn-head:hover {
+    background-color: #1e3317 !important;
+  }
+  
+  /* ==========================================
+     3. PAGE BOUTIQUE (CONTENU & PRODUITS)
+     ========================================== */
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  
+  .store-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2d4a22;
+  }
+  
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: #f4efe6;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .filter-btn {
+    background: white;
+    border: 1px solid #2d4a22;
+    color: #2d4a22;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  
+  .filter-btn.active,
+  .filter-btn:hover {
+    background: #2d4a22;
+    color: white;
+  }
+  
+  .search-bar {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 250px;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .product-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background-color: #f9f9f9;
+  }
+  
+  .product-info {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .product-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2d4a22;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-desc {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+  
+  .product-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #b7094c;
+    margin-bottom: 1rem;
+  }
+  
+  .add-to-cart-btn {
+    background-color: #2d4a22;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #1e3317;
+  }
+  
+  /* ==========================================
+     4. PANIER COULISSANT & FENÊTRE DE PAIEMENT
+     ========================================== */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 1050;
+  }
+  
+  .overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  .cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 100%;
+    max-width: 380px;
+    height: 100%;
+    background: white;
+    z-index: 1100;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cart-sidebar.open {
+    right: 0;
+  }
+  
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+  }
+  
+  .close-cart {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .cart-items {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin: 1rem 0;
+  }
+  
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+  }
+  
+  .cart-item-title {
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  
+  .cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  
+  .qty-btn {
+    background: #eee;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .cart-footer {
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+  }
+  
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .checkout-btn {
+    background: #b7094c;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    z-index: 1200;
+    width: 90%;
+    max-width: 450px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  
+  .modal.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .modal-header {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #2d4a22;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .pay-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  .pay-btn-opt {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #2d4a22;
+    background: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.85rem;
+  }
+  
+  .pay-btn-opt.selected {
+    background: #2d4a22;
+    color: white;
+  }
+  
+  .submit-pay-btn {
+    background: #2d4a22;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  /* ==========================================
+     5. RESPONSIVE DESIGN (MOBILES)
+     ========================================== */
+  @media (max-width: 768px) {
+    .bande-beige {
+      flex-direction: column;
+      gap: 10px;
+      padding-bottom: 15px !important;
+    }
+    .menu-links {
+      flex-wrap: wrap;
+      gap: 12px !important;
+    }
+    .cart-btn-head {
+      position: static !important;
+      transform: none !important;
+      margin-top: 5px;
+    }
+    .controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .search-bar {
+      width: 100%;
+    }
+  }
+
+  /* ==========================================
+   PIED DE PAGE (FOOTER) - STYLE OFFICIEL
+   ========================================== */
+.footer-oasis {
+  background-color: #1b382b !important; /* Vert foncé profond de la maquette */
+  color: #ffffff !important;
+  padding: 50px 20px 20px 20px !important;
+  font-family: Arial, sans-serif !important;
+  margin-top: 4rem !important;
+  width: 100% !important;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-col h4 {
+  color: #e6dac6 !important; /* Jaune/Beige sable des titres */
+  font-size: 1rem;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Colonne 1 : Logo et Description */
+.footer-brand-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.footer-brand-box img {
+  height: 40px;
+  width: auto;
+  background: #e6dac6;
+  padding: 3px;
+  border-radius: 4px;
+}
+
+.footer-brand-box h3 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.footer-desc {
+  color: #d1d5db;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* Colonne 2 : Navigation */
+.footer-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-menu li {
+  margin-bottom: 10px;
+}
+
+.footer-menu li a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-menu li a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Colonne 3 : Contact */
+.footer-col p {
+  color: #d1d5db;
+  font-size: 0.88rem;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+/* Colonne 4 : Paiements & Réseaux */
+.pay-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.badge-pay {
+  background-color: #284c3b;
+  color: #e6dac6;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border: 1px solid rgba(230, 218, 198, 0.2);
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  font-size: 1.2rem;
+}
+
+.social-icons a {
+  text-decoration: none;
+  filter: grayscale(100%);
+  transition: filter 0.2s;
+}
+
+.social-icons a:hover {
+  filter: grayscale(0%);
+}
+
+/* Copyright du bas */
+.footer-bottom {
+  text-align: center;
+  padding-top: 25px;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}

@@ -4,140 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Boutique en ligne - L'Oasis du Waalo</title>
+  
+  <!-- Liaison vers la feuille de style unique -->
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* Reset & Base */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fdfbf7; color: #2c3e50; line-height: 1.6; }
-
-    /* Header */
-    header { background-color: #ffffff; border-bottom: 2px solid #e0d7c6; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand img { height: 50px; width: auto; object-fit: contain; }
-    .brand h1 { font-size: 1.5rem; color: #1b4332; font-weight: 700; }
-    
-    nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
-    nav a { text-decoration: none; color: #2d6a4f; font-weight: 600; transition: color 0.2s; }
-    nav a:hover, nav a.active { color: #1b4332; text-decoration: underline; }
-    
-    .cart-btn-head { background: #2d6a4f; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
-    .cart-btn-head:hover { background: #1b4332; }
-
-    /* Main Layout */
-    .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-    .store-title { text-align: center; margin-bottom: 2rem; color: #1b4332; }
-    
-    /* Filters & Search */
-    .controls { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem; background: #f4efe6; padding: 1rem; border-radius: 8px; }
-    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
-    .filter-btn { background: white; border: 1px solid #2d6a4f; color: #2d6a4f; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
-    .filter-btn.active, .filter-btn:hover { background: #2d6a4f; color: white; }
-    .search-bar { padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; width: 250px; }
-
-    /* Product Grid */
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
-    .product-card { background: white; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
-    .product-card:hover { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
-    .product-img { width: 100%; height: 180px; object-fit: cover; background-color: #f9f9f9; }
-    .product-info { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; }
-    .product-title { font-size: 1.1rem; font-weight: bold; color: #1b4332; margin-bottom: 0.5rem; }
-    .product-desc { font-size: 0.9rem; color: #666; margin-bottom: 1rem; flex-grow: 1; }
-    .product-price { font-size: 1.2rem; font-weight: bold; color: #b7094c; margin-bottom: 1rem; }
-    .add-to-cart-btn { background-color: #2d6a4f; color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s; }
-    .add-to-cart-btn:hover { background-color: #1b4332; }
-
-    /* Cart Sidebar & Modal Overlay */
-    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 200; }
-    .overlay.open { opacity: 1; pointer-events: all; }
-    
-    .cart-sidebar { position: fixed; top: 0; right: -400px; width: 100%; max-width: 380px; height: 100%; background: white; z-index: 201; transition: right 0.3s ease; display: flex; flex-direction: column; padding: 1.5rem; box-shadow: -2px 0 10px rgba(0,0,0,0.1); }
-    .cart-sidebar.open { right: 0; }
-    .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 1rem; }
-    .close-cart { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
-    .cart-items { flex-grow: 1; overflow-y: auto; margin: 1rem 0; }
-    .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #f0f0f0; padding-bottom: 0.5rem; }
-    .cart-item-title { font-weight: bold; font-size: 0.95rem; }
-    .cart-item-qty { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
-    .qty-btn { background: #eee; border: none; width: 24px; height: 24px; border-radius: 4px; cursor: pointer; }
-    .cart-footer { border-top: 1px solid #ddd; padding-top: 1rem; }
-    .cart-total { display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
-    .checkout-btn { background: #b7094c; color: white; border: none; width: 100%; padding: 12px; border-radius: 6px; font-weight: bold; font-size: 1rem; cursor: pointer; }
-
-    /* Payment Modal */
-    .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background: white; padding: 2rem; border-radius: 10px; z-index: 300; width: 90%; max-width: 450px; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
-    .modal.open { opacity: 1; pointer-events: all; transform: translate(-50%, -50%) scale(1); }
-    .modal-header { font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem; color: #1b4332; }
-    .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 600; font-size: 0.9rem; }
-    .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
-    .pay-options { display: flex; gap: 10px; margin-bottom: 1rem; }
-    .pay-btn-opt { flex: 1; padding: 10px; border: 1px solid #2d6a4f; background: white; border-radius: 5px; cursor: pointer; text-align: center; font-weight: bold; font-size: 0.85rem; }
-    .pay-btn-opt.selected { background: #2d6a4f; color: white; }
-    .submit-pay-btn { background: #2d6a4f; color: white; border: none; width: 100%; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; }
-    .close-modal { position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 1.5rem; cursor: pointer; }
-
-    @media (max-width: 600px) {
-      header { flex-direction: column; gap: 10px; }
-      .controls { flex-direction: column; align-items: stretch; }
-      .search-bar { width: 100%; }
-    }
-  </style>
 </head>
 <body>
-  <link rel="stylesheet" href="style.css">
-  <!-- Header / Navigation -->
-  <!-- <header class="main-header">
-     Bande supérieure vert foncé avec le logo et le titre 
-    <div class="top-bar">
-      <div class="brand-container">
-        <div class="logo-box" style="display: flex; align-items: center; justify-content: center; height: 50px; background-color: #e6dac6; padding: 4px 10px; border-radius: 4px;">
-          <img src="Oasis/logo2.jpg" alt="L'Oasis du Waalo" style="height: 40px !important; width: auto !important; max-width: 150px !important; max-height: 40px !important; display: inline-block !important;">
-        </div>
-        <h1>L'Oasis du Waalo</h1>
+
+  <!-- En-tête à deux bandes -->
+  <header class="header-oasis">
+    <div class="bande-verte">
+      <div class="logo-wrapper">
+        <img src="logo.png" alt="L'Oasis du Waalo" class="logo-oasis">
       </div>
+      <h1 class="titre-oasis">L'Oasis du Waalo</h1>
     </div>
-  
-     Bande inférieure beige avec le menu et le panier 
-    <nav class="nav-bar">
-      <ul>
+
+    <nav class="bande-beige">
+      <ul class="menu-links">
         <li><a href="index.html">Accueil</a></li>
-        <li><a href="#">Notre Histoire</a></li>
-        <li><a href="#">Nos Produits</a></li>
+        <li><a href="histoire.html">Notre Histoire</a></li>
+        <li><a href="produits.html">Nos Produits</a></li>
         <li><a href="boutique.html" class="active">Boutique en Ligne</a></li>
-        <li><a href="#">Paniers Bio</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="paniers.html">Paniers Bio</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
       <button class="cart-btn-head" id="openCartBtn">
         🛒 Panier (<span id="cartCount">0</span>)
       </button>
     </nav>
-  </header> 
--->
-  <header>
-    <div class="header-container">
-        <img src="Oasis/logo2.jpg" alt="Logo L'Oasis du Waalo" class="header-logo">
-        <h1 class="header-text">L'Oasis du Waalo</h1>
-    </div>
-    <nav> 
-        <ul> 
-            <li><a href="index.html">Accueil</a></li> 
-            <li><a href="#">Notre Histoire</a></li> 
-            <li><a href="#">Nos Produits</a></li> 
-            <li><a href="boutique.html">Boutique en Ligne</a></li> 
-            <li><a href="#">Paniers Bio</a></li> 
-            <li><a href="#">Contact</a></li> 
-        </ul> 
-        <button class="cart-btn-head" id="openCartBtn">
-          🛒 Panier (<span id="cartCount">0</span>)
-        </button>
-    </nav> 
-</header>
+  </header>
 
-  <!-- Main Store Section -->
+  <!-- Contenu Principal -->
   <main class="container">
     <h2 class="store-title">Nos Produits de la Ferme</h2>
 
-    <!-- Controls: Filters & Search -->
     <div class="controls">
       <div class="filters">
         <button class="filter-btn active" data-cat="all">Tous</button>
@@ -148,13 +48,10 @@
       <input type="text" id="searchInput" class="search-bar" placeholder="Rechercher un produit...">
     </div>
 
-    <!-- Products Grid -->
-    <div class="product-grid" id="productGrid">
-      <!-- Les produits seront injectés via JavaScript -->
-    </div>
+    <div class="product-grid" id="productGrid"></div>
   </main>
 
-  <!-- Sidebar Panier -->
+  <!-- Panier Coulissant -->
   <div class="overlay" id="overlay"></div>
   <aside class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
@@ -173,10 +70,16 @@
     </div>
   </aside>
 
-  <!-- Modal de Paiement -->
-  <!--<div class="modal" id="payModal">
+  <!-- Fenêtre de Paiement Modal -->
+  <div class="modal" id="payModal">
     <button class="close-modal" id="closeModalBtn">&times;</button>
     <div class="modal-header">Paiement Sécurisé</div>
+    
+    <div style="background: #f4efe6; padding: 10px; border-radius: 6px; margin-bottom: 12px; font-size: 0.85rem;">
+      <p><strong>Wave / Orange Money :</strong> +221 77 000 00 00</p>
+      <p><strong>Compte Bancaire :</strong> SN123 01001 12345678901 22</p>
+    </div>
+
     <form id="paymentForm">
       <div class="form-group">
         <label>Moyen de paiement :</label>
@@ -200,34 +103,10 @@
       </div>
       <button type="submit" class="submit-pay-btn">Valider et Payer (<span id="payAmount">0 FCFA</span>)</button>
     </form>
-  </div>-->
-  <div class="modal" id="payModal">
-    <button class="close-modal" id="closeModalBtn">&times;</button>
-    <div class="modal-header">Instructions de Paiement</div>
-    
-    <!-- Informations de vos comptes -->
-    <div style="background: #f4efe6; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 0.9rem;">
-      <p><strong>Wave / Orange Money :</strong> Send to <code>+221 77 XXX XX XX</code></p>
-      <p><strong>RIB / Compte Bancaire :</strong> <code>SN123 01001 12345678901 22</code></p>
-      <p style="margin-top: 5px; color: #b7094c; font-size: 0.8rem;">* Veuillez indiquer votre nom en référence du transfert.</p>
-    </div>
-  
-    <form id="paymentForm">
-      <!-- Le reste de votre formulaire (Nom, Téléphone, Adresse) -->
-      <div class="form-group">
-        <label for="clientName">Votre Nom complet</label>
-        <input type="text" id="clientName" required placeholder="Moussa Diop">
-      </div>
-      <div class="form-group">
-        <label for="transID">ID de Transaction / Référence du paiement</label>
-        <input type="text" id="transID" required placeholder="Ex: Wave ID W12345678">
-      </div>
-      <button type="submit" class="submit-pay-btn">Confirmer ma commande (<span id="payAmount">0 FCFA</span>)</button>
-    </form>
   </div>
 
+  <!-- JavaScript -->
   <script>
-    // Données des produits
     const products = [
       { id: 1, name: "Tomates Fraîches Bio", category: "legumes", price: 1000, img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400", desc: "Le kg - Récoltées directement dans notre ferme." },
       { id: 2, name: "Tilapia Frais de Bassin", category: "poissons", price: 2500, img: "https://images.unsplash.com/photo-1534483509719-3feaee7c30da?w=400", desc: "Le kg - Poisson frais de pisciculture locale." },
@@ -238,7 +117,6 @@
 
     let cart = [];
 
-    // Éléments du DOM
     const productGrid = document.getElementById('productGrid');
     const cartCount = document.getElementById('cartCount');
     const cartItems = document.getElementById('cartItems');
@@ -253,11 +131,10 @@
     const payAmount = document.getElementById('payAmount');
     const searchInput = document.getElementById('searchInput');
 
-    // Afficher les produits
     function renderProducts(items) {
       productGrid.innerHTML = items.map(p => `
         <div class="product-card">
-          <img src="${p.img}" alt="${p.name}" class="product-img">
+          <img src="${p.img}" alt="${p.name}">
           <div class="product-info">
             <div class="product-title">${p.name}</div>
             <div class="product-desc">${p.desc}</div>
@@ -268,17 +145,10 @@
       `).join('');
     }
 
-    // Gestion du panier
     function addToCart(productId) {
       const product = products.find(p => p.id === productId);
       const existing = cart.find(item => item.id === productId);
-
-      if (existing) {
-        existing.qty++;
-      } else {
-        cart.push({ ...product, qty: 1 });
-      }
-
+      if (existing) { existing.qty++; } else { cart.push({ ...product, qty: 1 }); }
       updateCart();
       toggleCart(true);
     }
@@ -287,9 +157,7 @@
       const item = cart.find(i => i.id === productId);
       if (item) {
         item.qty += delta;
-        if (item.qty <= 0) {
-          cart = cart.filter(i => i.id !== productId);
-        }
+        if (item.qty <= 0) { cart = cart.filter(i => i.id !== productId); }
       }
       updateCart();
     }
@@ -322,7 +190,6 @@
       }
     }
 
-    // Modal & Sidebar Controls
     function toggleCart(open) {
       cartSidebar.classList.toggle('open', open);
       overlay.classList.toggle('open', open);
@@ -336,10 +203,7 @@
     });
 
     startCheckoutBtn.addEventListener('click', () => {
-      if (cart.length === 0) {
-        alert("Votre panier est vide !");
-        return;
-      }
+      if (cart.length === 0) { alert("Votre panier est vide !"); return; }
       toggleCart(false);
       payModal.classList.add('open');
       overlay.classList.add('open');
@@ -350,13 +214,11 @@
       overlay.classList.remove('open');
     });
 
-    // Sélection du mode de paiement
     function selectPayMethod(element) {
       document.querySelectorAll('.pay-btn-opt').forEach(btn => btn.classList.remove('selected'));
       element.classList.add('selected');
     }
 
-    // Simulation de traitement du paiement
     document.getElementById('paymentForm').addEventListener('submit', function(e) {
       e.preventDefault();
       alert("Merci pour votre commande ! Votre paiement a été reçu avec succès. L'Oasis du Waalo prépare votre livraison.");
@@ -366,18 +228,14 @@
       overlay.classList.remove('open');
     });
 
-    // Filtres et Recherche
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         e.target.classList.add('active');
 
         const category = e.target.getAttribute('data-cat');
-        if (category === 'all') {
-          renderProducts(products);
-        } else {
-          renderProducts(products.filter(p => p.category === category));
-        }
+        if (category === 'all') { renderProducts(products); } 
+        else { renderProducts(products.filter(p => p.category === category)); }
       });
     });
 
@@ -386,8 +244,64 @@
       renderProducts(products.filter(p => p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term)));
     });
 
-    // Initialisation
     renderProducts(products);
   </script>
+  <!-- Pied de page officiel - L'Oasis du Waalo -->
+  <footer class="footer-oasis">
+    <div class="footer-container">
+      
+      <!-- Colonne 1 : À propos / Logo -->
+      <div class="footer-col">
+        <div class="footer-brand-box">
+          <img src="Oasis/logo2.jpg" alt="L'Oasis du Waalo">
+          <h3>L'Oasis du Waalo</h3>
+        </div>
+        <p class="footer-desc">
+          Ferme agricole écologique modèle au Sénégal. Spécialisée en maraîchage bio, aquaculture durable, élevage et transformation de produits locaux.
+        </p>
+      </div>
+
+      <!-- Colonne 2 : Navigation -->
+      <div class="footer-col">
+        <h4>NAVIGATION</h4>
+        <ul class="footer-menu">
+          <li><a href="index.html">Accueil</a></li>  
+          <li><a href="boutique.html">Boutique en Ligne</a></li> 
+          <li><a href="#">Paniers Bio</a></li> 
+          <li><a href="#">Mentions Légales</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne 3 : Contact & Accès -->
+      <div class="footer-col">
+        <h4>CONTACT & ACCÈS</h4>
+        <p>📍 Keur Mbaye, Région de Saint-Louis, Sénégal</p>
+        <p>📞 +221 77 793 49 91 / +221 77 793 49 91</p>
+        <p>✉️ modougestu@gmail.com</p>
+      </div>
+
+      <!-- Colonne 4 : Moyens de paiement & Réseaux -->
+      <div class="footer-col">
+        <h4>MOYENS DE PAIEMENT</h4>
+        <div class="pay-badges">
+          <span class="badge-pay">Wave</span>
+          <span class="badge-pay">Orange Money</span>
+          <span class="badge-pay">Free Money</span>
+          <span class="badge-pay">Visa/Mastercard</span>
+        </div>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook">🌐</a>
+          <a href="#" aria-label="Instagram">📸</a>
+          <a href="#" aria-label="WhatsApp">💬</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Ligne de bas de copyright -->
+    <div class="footer-bottom">
+      <p>&copy; 2026 L'Oasis du Waalo. Tous droits réservés. Ferme Agricole Intégrée Sénégal.</p>
+    </div>
+  </footer>
 </body>
 </html>
