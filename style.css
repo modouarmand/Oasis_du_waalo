@@ -285,7 +285,7 @@ footer a {
   }
   
 
-  /*Page boutique en ligne */
+  /*PAGE BOUTIQUE en ligne */
   /* Header global */
 .main-header {
   width: 100%;
@@ -403,4 +403,24 @@ footer a {
   .cart-btn-head {
     position: static;
   }
+}
+/* Empêche l'image de dépasser de son conteneur */
+.logo-box {
+  background-color: #e6dac6; /* Fond clair du logo */
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px; /* Hauteur fixe pour le conteneur */
+}
+
+/* Force la taille restreinte du logo */
+.logo-box img,
+img.logo-img {
+  max-height: 40px !important; /* Limite la hauteur maximale */
+  width: auto !important;       /* Conserve les proportions */
+  max-width: 150px !important;  /* Empêche le logo de devenir géant */
+  object-fit: contain;
+  display: block;
 }

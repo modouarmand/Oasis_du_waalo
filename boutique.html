@@ -90,7 +90,7 @@
     <div class="top-bar">
       <div class="brand-container">
         <div class="logo-box">
-          <img src="Oasis/logo2.jpg" alt="L'Oasis du Waalo">
+          <img src="Oasis/logo2.jpg" alt="L'Oasis du Waalo" class="logo-img">
         </div>
         <h1>L'Oasis du Waalo</h1>
       </div>
@@ -153,7 +153,7 @@
   </aside>
 
   <!-- Modal de Paiement -->
-  <div class="modal" id="payModal">
+  <!--<div class="modal" id="payModal">
     <button class="close-modal" id="closeModalBtn">&times;</button>
     <div class="modal-header">Paiement Sécurisé</div>
     <form id="paymentForm">
@@ -178,6 +178,30 @@
         <input type="text" id="clientAddress" required placeholder="Dakar, Saint-Louis...">
       </div>
       <button type="submit" class="submit-pay-btn">Valider et Payer (<span id="payAmount">0 FCFA</span>)</button>
+    </form>
+  </div>-->
+  <div class="modal" id="payModal">
+    <button class="close-modal" id="closeModalBtn">&times;</button>
+    <div class="modal-header">Instructions de Paiement</div>
+    
+    <!-- Informations de vos comptes -->
+    <div style="background: #f4efe6; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 0.9rem;">
+      <p><strong>Wave / Orange Money :</strong> Send to <code>+221 77 XXX XX XX</code></p>
+      <p><strong>RIB / Compte Bancaire :</strong> <code>SN123 01001 12345678901 22</code></p>
+      <p style="margin-top: 5px; color: #b7094c; font-size: 0.8rem;">* Veuillez indiquer votre nom en référence du transfert.</p>
+    </div>
+  
+    <form id="paymentForm">
+      <!-- Le reste de votre formulaire (Nom, Téléphone, Adresse) -->
+      <div class="form-group">
+        <label for="clientName">Votre Nom complet</label>
+        <input type="text" id="clientName" required placeholder="Moussa Diop">
+      </div>
+      <div class="form-group">
+        <label for="transID">ID de Transaction / Référence du paiement</label>
+        <input type="text" id="transID" required placeholder="Ex: Wave ID W12345678">
+      </div>
+      <button type="submit" class="submit-pay-btn">Confirmer ma commande (<span id="payAmount">0 FCFA</span>)</button>
     </form>
   </div>
 
