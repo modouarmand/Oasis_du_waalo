@@ -85,15 +85,7 @@
         <span>Total :</span>
         <span id="cartTotal">0 FCFA</span>
       </div>
-      <div class="cart-footer">
-        <div class="cart-total">
-          <span>Total :</span>
-          <span id="cartTotal">0 FCFA</span>
-        </div>
-        <!-- Nouveau bouton pour vider le panier -->
-        <button class="clear-cart-btn" id="clearCartBtn">Vider le panier</button>
-        <button class="checkout-btn" id="startCheckoutBtn">Passer la commande</button>
-      </div>
+      <button class="clear-cart-btn" id="clearCartBtn">Vider le panier</button>
       <button class="checkout-btn" id="startCheckoutBtn">Passer la commande</button>
     </div>
   </aside>
@@ -162,6 +154,9 @@
     const closeModalBtn = document.getElementById('closeModalBtn');
     const payAmount = document.getElementById('payAmount');
     const searchInput = document.getElementById('searchInput');
+    const clearCartBtn = document.getElementById('clearCartBtn');
+
+    
 
     function renderProducts(items) {
       productGrid.innerHTML = items.map(p => `
@@ -232,6 +227,17 @@
     overlay.addEventListener('click', () => {
       toggleCart(false);
       payModal.classList.remove('open');
+    });
+
+    clearCartBtn.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert("Votre panier est déjà vide !");
+        return;
+      }
+      if (confirm("Voulez-vous vraiment vider tout votre panier ?")) {
+        cart = [];
+        updateCart();
+      }
     });
 
     startCheckoutBtn.addEventListener('click', () => {
