@@ -747,12 +747,23 @@ footer a {
   }
   
   .qty-btn {
-    background: #2d4a22;
-    border: none;
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    cursor: pointer;
+    background: #2d4a22 !important; /* Couleur assortie au thème vert */
+    color: white !important;
+    border: none !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+    display: flex !important;
+    align-items: center !important;     /* Centre verticalement le signe */
+    justify-content: center !important; /* Centre horizontalement le signe */
+    line-height: 1 !important;
+  }
+
+  .qty-btn:hover {
+    background: #1e3317 !important;
   }
   
   .cart-footer {
