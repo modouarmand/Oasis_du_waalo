@@ -287,14 +287,14 @@ footer a {
   
 
   /*PAGE BOUTIQUE en ligne */
-  /* Header global 
+ Header global 
 .main-header {
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 100;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}*/
+}
 
 /* Bande supérieure vert foncé */
 .top-bar {
@@ -746,7 +746,7 @@ footer a {
   }
   
   .qty-btn {
-    background: #eee;
+    background: #2d4a22;
     border: none;
     width: 24px;
     height: 24px;
