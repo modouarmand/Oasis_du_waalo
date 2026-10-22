@@ -1040,3 +1040,23 @@ footer a {
   font-size: 0.8rem;
   color: #9ca3af;
 }
+
+/* Style du bouton Vider le panier */
+.clear-cart-btn {
+  background: #f3f4f6 !important;
+  color: #374151 !important;
+  border: 1px solid #d1d5db !important;
+  width: 100% !important;
+  padding: 10px !important;
+  border-radius: 6px !important;
+  font-weight: bold !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  margin-bottom: 8px !important;
+  transition: background 0.2s !important;
+}
+
+.clear-cart-btn:hover {
+  background: #e5e7eb !important;
+  color: #111827 !important;
+}
