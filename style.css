@@ -299,6 +299,7 @@ footer a {
 /* Bande supérieure vert foncé */
 .top-bar {
   background-color: #1b382b; /* Vert forêt foncé correspondant à votre image */
+  background-color: #2d4a22
   padding: 8px 0;
   display: flex;
   justify-content: center;
@@ -437,7 +438,7 @@ footer a {
   
   /* Bande 1 : Vert foncé (Logo + Titre centrés) */
   .bande-verte {
-    background-color: #2d4a22 !important;
+    background-color: #1b382b !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
