@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique en ligne - L'Oasis du Waalo</title>
+  <style>
+    /* Reset & Base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fdfbf7; color: #2c3e50; line-height: 1.6; }
+
+    /* Header */
+    header { background-color: #ffffff; border-bottom: 2px solid #e0d7c6; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { height: 50px; width: auto; object-fit: contain; }
+    .brand h1 { font-size: 1.5rem; color: #1b4332; font-weight: 700; }
+    
+    nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+    nav a { text-decoration: none; color: #2d6a4f; font-weight: 600; transition: color 0.2s; }
+    nav a:hover, nav a.active { color: #1b4332; text-decoration: underline; }
+    
+    .cart-btn-head { background: #2d6a4f; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .cart-btn-head:hover { background: #1b4332; }
+
+    /* Main Layout */
+    .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    .store-title { text-align: center; margin-bottom: 2rem; color: #1b4332; }
+    
+    /* Filters & Search */
+    .controls { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem; background: #f4efe6; padding: 1rem; border-radius: 8px; }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn { background: white; border: 1px solid #2d6a4f; color: #2d6a4f; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+    .filter-btn.active, .filter-btn:hover { background: #2d6a4f; color: white; }
+    .search-bar { padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; width: 250px; }
+
+    /* Product Grid */
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+    .product-card { background: white; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+    .product-img { width: 100%; height: 180px; object-fit: cover; background-color: #f9f9f9; }
+    .product-info { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .product-title { font-size: 1.1rem; font-weight: bold; color: #1b4332; margin-bottom: 0.5rem; }
+    .product-desc { font-size: 0.9rem; color: #666; margin-bottom: 1rem; flex-grow: 1; }
+    .product-price { font-size: 1.2rem; font-weight: bold; color: #b7094c; margin-bottom: 1rem; }
+    .add-to-cart-btn { background-color: #2d6a4f; color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s; }
+    .add-to-cart-btn:hover { background-color: #1b4332; }
+
+    /* Cart Sidebar & Modal Overlay */
+    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 200; }
+    .overlay.open { opacity: 1; pointer-events: all; }
+    
+    .cart-sidebar { position: fixed; top: 0; right: -400px; width: 100%; max-width: 380px; height: 100%; background: white; z-index: 201; transition: right 0.3s ease; display: flex; flex-direction: column; padding: 1.5rem; box-shadow: -2px 0 10px rgba(0,0,0,0.1); }
+    .cart-sidebar.open { right: 0; }
+    .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 1rem; }
+    .close-cart { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+    .cart-items { flex-grow: 1; overflow-y: auto; margin: 1rem 0; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #f0f0f0; padding-bottom: 0.5rem; }
+    .cart-item-title { font-weight: bold; font-size: 0.95rem; }
+    .cart-item-qty { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .qty-btn { background: #eee; border: none; width: 24px; height: 24px; border-radius: 4px; cursor: pointer; }
+    .cart-footer { border-top: 1px solid #ddd; padding-top: 1rem; }
+    .cart-total { display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
+    .checkout-btn { background: #b7094c; color: white; border: none; width: 100%; padding: 12px; border-radius: 6px; font-weight: bold; font-size: 1rem; cursor: pointer; }
+
+    /* Payment Modal */
+    .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background: white; padding: 2rem; border-radius: 10px; z-index: 300; width: 90%; max-width: 450px; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
+    .modal.open { opacity: 1; pointer-events: all; transform: translate(-50%, -50%) scale(1); }
+    .modal-header { font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem; color: #1b4332; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 600; font-size: 0.9rem; }
+    .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+    .pay-options { display: flex; gap: 10px; margin-bottom: 1rem; }
+    .pay-btn-opt { flex: 1; padding: 10px; border: 1px solid #2d6a4f; background: white; border-radius: 5px; cursor: pointer; text-align: center; font-weight: bold; font-size: 0.85rem; }
+    .pay-btn-opt.selected { background: #2d6a4f; color: white; }
+    .submit-pay-btn { background: #2d6a4f; color: white; border: none; width: 100%; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    .close-modal { position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 1.5rem; cursor: pointer; }
+
+    @media (max-width: 600px) {
+      header { flex-direction: column; gap: 10px; }
+      .controls { flex-direction: column; align-items: stretch; }
+      .search-bar { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <header>
+    <div class="brand">
+      <img src="Oasis/logo2.jpg" alt="L'Oasis du Waalo">
+      <h1>L'Oasis du Waalo</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="boutique.html" class="active">Boutique</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="cart-btn-head" id="openCartBtn">
+      🛒 Panier (<span id="cartCount">0</span>)
+    </button>
+  </header>
+
+  <!-- Main Store Section -->
+  <main class="container">
+    <h2 class="store-title">Nos Produits de la Ferme</h2>
+
+    <!-- Controls: Filters & Search -->
+    <div class="controls">
+      <div class="filters">
+        <button class="filter-btn active" data-cat="all">Tous</button>
+        <button class="filter-btn" data-cat="legumes">Légumes Bio</button>
+        <button class="filter-btn" data-cat="poissons">Pêche / Poisson</button>
+        <button class="filter-btn" data-cat="elevage">Élevage</button>
+      </div>
+      <input type="text" id="searchInput" class="search-bar" placeholder="Rechercher un produit...">
+    </div>
+
+    <!-- Products Grid -->
+    <div class="product-grid" id="productGrid">
+      <!-- Les produits seront injectés via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Sidebar Panier -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Votre Panier</h3>
+      <button class="close-cart" id="closeCartBtn">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p style="text-align: center; color: #888; margin-top: 2rem;">Votre panier est vide.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total :</span>
+        <span id="cartTotal">0 FCFA</span>
+      </div>
+      <button class="checkout-btn" id="startCheckoutBtn">Passer la commande</button>
+    </div>
+  </aside>
+
+  <!-- Modal de Paiement -->
+  <div class="modal" id="payModal">
+    <button class="close-modal" id="closeModalBtn">&times;</button>
+    <div class="modal-header">Paiement Sécurisé</div>
+    <form id="paymentForm">
+      <div class="form-group">
+        <label>Moyen de paiement :</label>
+        <div class="pay-options">
+          <div class="pay-btn-opt selected" onclick="selectPayMethod(this)">Wave</div>
+          <div class="pay-btn-opt" onclick="selectPayMethod(this)">Orange Money</div>
+          <div class="pay-btn-opt" onclick="selectPayMethod(this)">Carte CB</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="clientName">Nom complet</label>
+        <input type="text" id="clientName" required placeholder="Moussa Diop">
+      </div>
+      <div class="form-group">
+        <label for="clientPhone">Numéro de Téléphone / Payeur</label>
+        <input type="tel" id="clientPhone" required placeholder="+221 77 000 00 00">
+      </div>
+      <div class="form-group">
+        <label for="clientAddress">Adresse de Livraison</label>
+        <input type="text" id="clientAddress" required placeholder="Dakar, Saint-Louis...">
+      </div>
+      <button type="submit" class="submit-pay-btn">Valider et Payer (<span id="payAmount">0 FCFA</span>)</button>
+    </form>
+  </div>
+
+  <script>
+    // Données des produits
+    const products = [
+      { id: 1, name: "Tomates Fraîches Bio", category: "legumes", price: 1000, img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400", desc: "Le kg - Récoltées directement dans notre ferme." },
+      { id: 2, name: "Tilapia Frais de Bassin", category: "poissons", price: 2500, img: "https://images.unsplash.com/photo-1534483509719-3feaee7c30da?w=400", desc: "Le kg - Poisson frais de pisciculture locale." },
+      { id: 3, name: "Poulet de Chair", category: "elevage", price: 3500, img: "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400", desc: "L'unité - Élevé en plein air, prêt à cuisiner." },
+      { id: 4, name: "Oignons du Waalo", category: "legumes", price: 800, img: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cf?w=400", desc: "Le kg - Saveur intense et excellente conservation." },
+      { id: 5, name: "Miel Pur de l'Oasis", category: "legumes", price: 5000, img: "https://images.unsplash.com/photo-1587049352847-4a222e784d38?w=400", desc: "Pot de 500g - Miel 100% naturel d'arbres locaux." }
+    ];
+
+    let cart = [];
+
+    // Éléments du DOM
+    const productGrid = document.getElementById('productGrid');
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const openCartBtn = document.getElementById('openCartBtn');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('overlay');
+    const startCheckoutBtn = document.getElementById('startCheckoutBtn');
+    const payModal = document.getElementById('payModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const payAmount = document.getElementById('payAmount');
+    const searchInput = document.getElementById('searchInput');
+
+    // Afficher les produits
+    function renderProducts(items) {
+      productGrid.innerHTML = items.map(p => `
+        <div class="product-card">
+          <img src="${p.img}" alt="${p.name}" class="product-img">
+          <div class="product-info">
+            <div class="product-title">${p.name}</div>
+            <div class="product-desc">${p.desc}</div>
+            <div class="product-price">${p.price} FCFA</div>
+            <button class="add-to-cart-btn" onclick="addToCart(${p.id})">Ajouter au panier</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Gestion du panier
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      const existing = cart.find(item => item.id === productId);
+
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+
+      updateCart();
+      toggleCart(true);
+    }
+
+    function changeQty(productId, delta) {
+      const item = cart.find(i => i.id === productId);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) {
+          cart = cart.filter(i => i.id !== productId);
+        }
+      }
+      updateCart();
+    }
+
+    function updateCart() {
+      const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+      cartCount.textContent = totalCount;
+      cartTotal.textContent = `${totalPrice} FCFA`;
+      payAmount.textContent = `${totalPrice} FCFA`;
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = `<p style="text-align: center; color: #888; margin-top: 2rem;">Votre panier est vide.</p>`;
+      } else {
+        cartItems.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <div>
+              <div class="cart-item-title">${item.name}</div>
+              <div style="font-size:0.85rem; color:#666;">${item.price} FCFA x ${item.qty}</div>
+              <div class="cart-item-qty">
+                <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                <span>${item.qty}</span>
+                <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+              </div>
+            </div>
+            <div style="font-weight:bold;">${item.price * item.qty} FCFA</div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Modal & Sidebar Controls
+    function toggleCart(open) {
+      cartSidebar.classList.toggle('open', open);
+      overlay.classList.toggle('open', open);
+    }
+
+    openCartBtn.addEventListener('click', () => toggleCart(true));
+    closeCartBtn.addEventListener('click', () => toggleCart(false));
+    overlay.addEventListener('click', () => {
+      toggleCart(false);
+      payModal.classList.remove('open');
+    });
+
+    startCheckoutBtn.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert("Votre panier est vide !");
+        return;
+      }
+      toggleCart(false);
+      payModal.classList.add('open');
+      overlay.classList.add('open');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      payModal.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+
+    // Sélection du mode de paiement
+    function selectPayMethod(element) {
+      document.querySelectorAll('.pay-btn-opt').forEach(btn => btn.classList.remove('selected'));
+      element.classList.add('selected');
+    }
+
+    // Simulation de traitement du paiement
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("Merci pour votre commande ! Votre paiement a été reçu avec succès. L'Oasis du Waalo prépare votre livraison.");
+      cart = [];
+      updateCart();
+      payModal.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+
+    // Filtres et Recherche
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+
+        const category = e.target.getAttribute('data-cat');
+        if (category === 'all') {
+          renderProducts(products);
+        } else {
+          renderProducts(products.filter(p => p.category === category));
+        }
+      });
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      renderProducts(products.filter(p => p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term)));
+    });
+
+    // Initialisation
+    renderProducts(products);
+  </script>
+</body>
+</html>
